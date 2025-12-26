@@ -337,7 +337,8 @@ def run_ensemble_inference(
     
     # 合併結果
     ensemble_probs = torch.cat(all_ensemble_probs, dim=0).numpy()
-    fake_probs = ensemble_probs[:, 1]  # fake 類別機率
+    # 注意：類別順序為 [fake=0, real=1]，所以取 [:, 0] 是 fake 機率
+    fake_probs = ensemble_probs[:, 0]  # fake 類別機率 (index 0)
     
     ensemble_df = pd.DataFrame({
         'id': [int(f) if f.isdigit() else f for f in all_filenames],
@@ -350,7 +351,7 @@ def run_ensemble_inference(
             probs = torch.cat(all_individual_probs[name], dim=0).numpy()
             individual_dfs[name] = pd.DataFrame({
                 'id': [int(f) if f.isdigit() else f for f in all_filenames],
-                'label': probs[:, 1]
+                'label': probs[:, 0]  # fake 類別機率 (index 0)
             })
     
     return ensemble_df, individual_dfs
