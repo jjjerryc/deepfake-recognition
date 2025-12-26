@@ -507,6 +507,10 @@ def main():
                         help='Output directory')
     parser.add_argument('--no-individual', action='store_true',
                         help='Do not save individual model predictions')
+    parser.add_argument('--kaggle-format', action='store_true',
+                        help='Output in Kaggle format (filename,real/fake) instead of probabilities')
+    parser.add_argument('--threshold', type=float, default=0.5,
+                        help='Threshold for fake classification (default: 0.5)')
     
     # 硬體設定
     parser.add_argument('--device', type=str, default='cuda',
@@ -617,10 +621,37 @@ def main():
     # 保存結果
     os.makedirs(output_dir, exist_ok=True)
     
+    # 統計（基於機率）
+    fake_probs = ensemble_df['label'].values
+    threshold = args.threshold
+    
+    print("\n" + "=" * 60)
+    print("Prediction Statistics")
+    print("=" * 60)
+    print(f"Total samples: {len(fake_probs)}")
+    print(f"Threshold: {threshold}")
+    print(f"Predicted fake (>{threshold}): {(fake_probs > threshold).sum()} ({(fake_probs > threshold).mean()*100:.1f}%)")
+    print(f"Predicted real (≤{threshold}): {(fake_probs <= threshold).sum()} ({(fake_probs <= threshold).mean()*100:.1f}%)")
+    print(f"Mean probability: {fake_probs.mean():.4f}")
+    print(f"Std probability: {fake_probs.std():.4f}")
+    
+    # 根據格式選項保存
     output_name = config['ensemble'].get('output', {}).get('output_name', 'ensemble_submission.csv')
-    ensemble_path = os.path.join(output_dir, output_name)
-    ensemble_df.to_csv(ensemble_path, index=False)
-    print(f"\n✅ Ensemble submission saved: {ensemble_path}")
+    
+    if args.kaggle_format:
+        # 轉換成 Kaggle 格式: filename, real/fake
+        kaggle_df = ensemble_df.copy()
+        kaggle_df.columns = ['filename', 'label']
+        kaggle_df['label'] = kaggle_df['label'].apply(lambda x: 'fake' if x > threshold else 'real')
+        
+        kaggle_path = os.path.join(output_dir, output_name.replace('.csv', '_kaggle.csv'))
+        kaggle_df.to_csv(kaggle_path, index=False)
+        print(f"\n✅ Kaggle submission saved: {kaggle_path}")
+    
+    # 總是保存機率版本（方便後續調整 threshold）
+    prob_path = os.path.join(output_dir, output_name.replace('.csv', '_probs.csv'))
+    ensemble_df.to_csv(prob_path, index=False)
+    print(f"✅ Probability submission saved: {prob_path}")
     
     if not args.no_individual:
         ind_dir = os.path.join(output_dir, 'individual')
@@ -628,17 +659,6 @@ def main():
         for name, df in individual_dfs.items():
             df.to_csv(os.path.join(ind_dir, f'{name}_submission.csv'), index=False)
         print(f"✅ Individual predictions saved: {ind_dir}/")
-    
-    # 統計
-    fake_probs = ensemble_df['label'].values
-    print("\n" + "=" * 60)
-    print("Prediction Statistics")
-    print("=" * 60)
-    print(f"Total samples: {len(fake_probs)}")
-    print(f"Predicted fake (>0.5): {(fake_probs > 0.5).sum()}")
-    print(f"Predicted real (≤0.5): {(fake_probs <= 0.5).sum()}")
-    print(f"Mean probability: {fake_probs.mean():.4f}")
-    print(f"Std probability: {fake_probs.std():.4f}")
     
     print("\n✅ Ensemble inference complete!")
 

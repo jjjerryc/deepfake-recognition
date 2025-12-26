@@ -310,12 +310,16 @@ def main():
         )
         predictions = inference_single(model, loader, device, use_amp)
     
+    # 標籤映射：0=fake, 1=real（按字母順序）
+    LABEL_MAP = {0: 'fake', 1: 'real'}
+    
     # 生成 submission 文件
     output_path = output_dir / output_name
     with open(output_path, 'w') as f:
-        f.write("id,label\n")
+        f.write("filename,label\n")  # Kaggle 格式要求 filename 而非 id
         for filename, pred in predictions:
-            f.write(f"{filename},{pred}\n")
+            label_str = LABEL_MAP[pred]
+            f.write(f"{filename},{label_str}\n")
     
     print(f"\n" + "=" * 60)
     print("Inference Complete!")
@@ -326,7 +330,7 @@ def main():
     # 統計預測分布
     fake_count = sum(1 for _, pred in predictions if pred == 0)
     real_count = sum(1 for _, pred in predictions if pred == 1)
-    print(f"  Distribution: Fake={fake_count}, Real={real_count}")
+    print(f"  Distribution: Fake={fake_count} ({fake_count/len(predictions)*100:.1f}%), Real={real_count} ({real_count/len(predictions)*100:.1f}%)")
     print("=" * 60)
 
 
