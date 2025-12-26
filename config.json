@@ -1,0 +1,176 @@
+{
+    "project": {
+        "name": "Deepfake-Detection-Multi-Model",
+        "version": "3.3.0",
+        "description": "Multi-backbone deepfake detection framework with EfficientNet + DCT frequency features"
+    },
+    
+    "data": {
+        "data_path": "./dataset",
+        "image_size": 224,
+        "_comment": "ImageNet 標準尺寸",
+        "val_split": 0.15,
+        "num_workers": 8,
+        "_comment_workers": "V100 建議 8 workers 來最大化 GPU 利用率"
+    },
+    
+    "model": {
+        "name": "efficientnet_b0_dct",
+        "_available_models": [
+            "efficientnet_b0", "efficientnet_b1", "efficientnet_b2", "efficientnet_b3", "efficientnet_b4",
+            "efficientnet_b0_dct", "efficientnet_b1_dct", "efficientnet_b2_dct", "efficientnet_b3_dct", "efficientnet_b4_dct",
+            "efficientnet_b0_dct_attn", "efficientnet_b1_dct_attn", "efficientnet_b2_dct_attn", "efficientnet_b3_dct_attn", "efficientnet_b4_dct_attn",
+            "clip_vit_b32", "clip_vit_b16", "clip_vit_l14", "clip_vit_b16_laion", "clip_convnext_base",
+            "clip_vit_b32_dct", "clip_vit_b16_dct"
+        ],
+        "num_classes": 2,
+        "pretrained": true,
+        "dropout": 0.5,
+        "_comment_dropout": "提高 dropout 到 0.5 加強正則化，防止過擬合",
+        "drop_path_rate": 0.2,
+        "dct_dim": 128,
+        "fusion_dim": 512
+    },
+    
+    "training": {
+        "batch_size": 64,
+        "epochs": 50,
+        "learning_rate": 1e-4,
+        "backbone_lr_multiplier": 0.1,
+        "weight_decay": 0.05,
+        "patience": 10,
+        "min_delta": 0.001,
+        "seed": 42,
+        "gradient_clip": 1.0,
+        "label_smoothing": 0.1,
+        "warmup_epochs": 2
+    },
+    
+    "optimizer": {
+        "type": "AdamW",
+        "betas": [0.9, 0.999],
+        "eps": 1e-8
+    },
+    
+    "scheduler": {
+        "type": "ReduceLROnPlateau",
+        "mode": "max",
+        "factor": 0.5,
+        "patience": 3,
+        "min_lr": 1e-6,
+        "threshold": 0.001
+    },
+    
+    "augmentation": {
+        "train": {
+            "horizontal_flip": 0.5,
+            "vertical_flip": 0.0,
+            "rotation_degrees": 15,
+            "brightness": 0.3,
+            "contrast": 0.3,
+            "saturation": 0.2,
+            "hue": 0.1,
+            "random_erasing": 0.2,
+            "gaussian_blur": 0.1,
+            "random_crop_scale": [0.8, 1.0],
+            "jpeg_quality": [70, 100],
+            "mixup_alpha": 0.1,
+            "cutmix_alpha": 0.0,
+            "mix_prob": 0.2
+        },
+        "test": {
+            "tta_enabled": true,
+            "tta_transforms": ["original", "hflip"]
+        }
+    },
+    
+    "preprocessing": {
+        "use_model_default": true,
+        "normalize": {
+            "mean": [0.485, 0.456, 0.406],
+            "std": [0.229, 0.224, 0.225]
+        }
+    },
+    
+    "inference": {
+        "model_path": "./outputs/{model_name}/best_model.pth",
+        "_comment_path": "使用 {model_name} 作為佔位符，會自動替換為當前模型名稱",
+        "batch_size": 128,
+        "_comment": "推論時可以用更大的 batch_size",
+        "output_dir": "./outputs",
+        "output_name": "submission.csv"
+    },
+    
+    "logging": {
+        "log_dir": "./outputs/logs",
+        "_comment": "日誌放在 outputs 下方便管理",
+        "log_interval": 50,
+        "save_best_only": true,
+        "checkpoint_interval": 5
+    },
+    
+    "hardware": {
+        "device": "cuda",
+        "mixed_precision": true
+    },
+    
+    "output": {
+        "output_dir": "./outputs",
+        "save_best_only": true
+    },
+    
+    "ensemble": {
+        "enabled": true,
+        "strategy": "weighted_average",
+        "_available_strategies": ["average", "weighted_average", "vote", "max", "stacking"],
+        "temperature": 1.0,
+        "_comment_temperature": "用於 softmax 的溫度參數，較高值會使預測更平滑",
+        
+        "models": [
+            {
+                "name": "efficientnet_b4_dct",
+                "checkpoint": "./outputs/efficientnet_b4_dct/best_model.pth",
+                "weight": 0.3,
+                "_comment": "DCT 頻域特徵，擅長捕捉壓縮偽影"
+            },
+            {
+                "name": "clip_vit_b32",
+                "checkpoint": "./outputs/clip_vit_b32/best_model.pth",
+                "weight": 0.25,
+                "_comment": "CLIP ViT-B/32，良好的跨域泛化能力"
+            },
+            {
+                "name": "clip_vit_b16",
+                "checkpoint": "./outputs/clip_vit_b16/best_model.pth",
+                "weight": 0.25,
+                "_comment": "CLIP ViT-B/16，更高解析度的 patch"
+            },
+            {
+                "name": "clip_vit_b32_dct",
+                "checkpoint": "./outputs/clip_vit_b32_dct/best_model.pth",
+                "weight": 0.2,
+                "_comment": "CLIP + DCT 混合模型"
+            }
+        ],
+        
+        "stacking": {
+            "meta_model": "logistic_regression",
+            "_available_meta_models": ["logistic_regression", "mlp", "xgboost"],
+            "use_probabilities": true,
+            "cv_folds": 5
+        },
+        
+        "auto_weight": {
+            "enabled": false,
+            "method": "val_accuracy",
+            "_available_methods": ["val_accuracy", "val_auc", "inverse_loss"],
+            "_comment": "自動根據驗證集表現設定權重"
+        },
+        
+        "output": {
+            "save_individual": true,
+            "_comment_individual": "是否保存每個模型的個別預測結果",
+            "output_name": "ensemble_submission.csv"
+        }
+    }
+}

@@ -1,0 +1,29 @@
+[project]
+name = "deepfake-detection"
+version = "3.3.0"
+description = "Multi-Model Deepfake Detection Framework with EfficientNet, CLIP, and Ensemble Pipeline"
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+    "pillow>=12.0.0",
+    "torch>=2.1.2",
+    "torchvision>=0.24.1",
+    "timm>=1.0.0",
+    "tqdm>=4.67.1",
+    "open_clip_torch>=2.24.0",
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+]
+
+[project.scripts]
+train = "src.train:main"
+inference = "src.inference:main"
+ensemble = "src.ensemble_inference:main"
+convert = "src.convert_submission:main"

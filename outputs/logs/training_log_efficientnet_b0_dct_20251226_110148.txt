@@ -1,0 +1,46 @@
+
+============================================================
+Starting Training
+  Model: efficientnet_b0_dct
+  Epochs: 25
+  Batch size: 64
+  Learning rate: 0.0002
+  Label smoothing: 0.1
+  Scheduler: OneCycleLR
+============================================================
+
+Epoch   1/25 | Train: 64.07% (0.6782) | Val: 74.87% (0.5510) | LR: 7.44e-05 | Time: 65.2s | ★ Best!
+Epoch   2/25 | Train: 76.95% (0.5307) | Val: 80.91% (0.4786) | LR: 1.82e-04 | Time: 54.8s | ★ Best!
+Epoch   3/25 | Train: 81.69% (0.4747) | Val: 84.71% (0.4355) | LR: 2.00e-04 | Time: 56.3s | ★ Best!
+Epoch   4/25 | Train: 84.78% (0.4324) | Val: 84.62% (0.4319) | LR: 1.98e-04 | Time: 56.4s
+Epoch   5/25 | Train: 87.34% (0.4005) | Val: 85.53% (0.4248) | LR: 1.94e-04 | Time: 55.8s | ★ Best!
+Epoch   6/25 | Train: 89.07% (0.3773) | Val: 84.78% (0.4314) | LR: 1.88e-04 | Time: 55.3s
+Epoch   7/25 | Train: 90.39% (0.3527) | Val: 85.51% (0.4309) | LR: 1.81e-04 | Time: 56.4s
+Epoch   8/25 | Train: 91.62% (0.3370) | Val: 83.84% (0.4477) | LR: 1.72e-04 | Time: 56.2s
+Epoch   9/25 | Train: 92.49% (0.3238) | Val: 84.87% (0.4475) | LR: 1.62e-04 | Time: 55.9s
+Epoch  10/25 | Train: 93.55% (0.3070) | Val: 84.78% (0.4542) | LR: 1.50e-04 | Time: 55.8s
+Epoch  11/25 | Train: 94.15% (0.2953) | Val: 85.78% (0.4584) | LR: 1.37e-04 | Time: 55.9s | ★ Best!
+Epoch  12/25 | Train: 94.90% (0.2853) | Val: 85.98% (0.4572) | LR: 1.24e-04 | Time: 56.2s | ★ Best!
+Epoch  13/25 | Train: 95.21% (0.2784) | Val: 85.42% (0.4671) | LR: 1.10e-04 | Time: 56.1s
+Epoch  14/25 | Train: 95.91% (0.2674) | Val: 84.58% (0.4827) | LR: 9.65e-05 | Time: 56.5s
+Epoch  15/25 | Train: 96.37% (0.2611) | Val: 85.33% (0.4790) | LR: 8.26e-05 | Time: 55.8s
+Epoch  16/25 | Train: 96.94% (0.2513) | Val: 85.40% (0.4822) | LR: 6.91e-05 | Time: 55.7s
+Epoch  17/25 | Train: 97.22% (0.2469) | Val: 85.53% (0.4742) | LR: 5.61e-05 | Time: 57.1s
+Epoch  18/25 | Train: 97.28% (0.2457) | Val: 86.00% (0.4787) | LR: 4.41e-05 | Time: 57.6s | ★ Best!
+Epoch  19/25 | Train: 97.78% (0.2374) | Val: 86.31% (0.4841) | LR: 3.31e-05 | Time: 56.8s | ★ Best!
+Epoch  20/25 | Train: 97.83% (0.2366) | Val: 85.82% (0.4860) | LR: 2.34e-05 | Time: 57.1s
+Epoch  21/25 | Train: 97.96% (0.2348) | Val: 85.76% (0.4887) | LR: 1.52e-05 | Time: 57.5s
+Epoch  22/25 | Train: 98.08% (0.2320) | Val: 85.82% (0.4874) | LR: 8.64e-06 | Time: 56.8s
+Epoch  23/25 | Train: 98.08% (0.2311) | Val: 86.13% (0.4844) | LR: 3.87e-06 | Time: 56.9s
+Epoch  24/25 | Train: 98.14% (0.2311) | Val: 86.16% (0.4850) | LR: 9.76e-07 | Time: 55.9s
+Epoch  25/25 | Train: 98.13% (0.2312) | Val: 86.16% (0.4852) | LR: 8.01e-09 | Time: 56.3s
+
+============================================================
+Training Complete!
+  Model: efficientnet_b0_dct
+  Total Time: 23.65 minutes
+  Best Validation Accuracy: 86.31%
+  Best model: outputs/best_model.pth
+  Training log: outputs/logs/training_log_efficientnet_b0_dct_20251226_110148.txt
+  History JSON: outputs/logs/history_efficientnet_b0_dct_20251226_110148.json
+============================================================

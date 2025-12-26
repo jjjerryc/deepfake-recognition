@@ -1,0 +1,38 @@
+
+============================================================
+Starting Training
+  Model: efficientnet_b4_dct
+  Epochs: 25
+  Batch size: 64
+  Learning rate: 0.0002
+  Label smoothing: 0.1
+  Scheduler: OneCycleLR
+============================================================
+
+Epoch   1/25 | Train: 61.71% (0.6972) | Val: 73.27% (0.5697) | LR: 7.44e-05 | Time: 87.7s | ★ Best!
+Epoch   2/25 | Train: 75.50% (0.5480) | Val: 81.58% (0.4723) | LR: 1.82e-04 | Time: 71.3s | ★ Best!
+Epoch   3/25 | Train: 82.09% (0.4675) | Val: 84.56% (0.4359) | LR: 2.00e-04 | Time: 70.7s | ★ Best!
+Epoch   4/25 | Train: 86.21% (0.4144) | Val: 86.20% (0.4132) | LR: 1.98e-04 | Time: 71.5s | ★ Best!
+Epoch   5/25 | Train: 89.01% (0.3750) | Val: 86.84% (0.4091) | LR: 1.94e-04 | Time: 71.9s | ★ Best!
+Epoch   6/25 | Train: 91.01% (0.3463) | Val: 86.96% (0.4262) | LR: 1.88e-04 | Time: 71.9s | ★ Best!
+Epoch   7/25 | Train: 92.64% (0.3227) | Val: 86.87% (0.4158) | LR: 1.81e-04 | Time: 72.1s
+Epoch   8/25 | Train: 93.60% (0.3059) | Val: 87.44% (0.4112) | LR: 1.72e-04 | Time: 72.1s | ★ Best!
+Epoch   9/25 | Train: 94.40% (0.2921) | Val: 87.24% (0.4211) | LR: 1.62e-04 | Time: 72.3s
+Epoch  10/25 | Train: 95.33% (0.2776) | Val: 86.98% (0.4246) | LR: 1.50e-04 | Time: 72.1s
+Epoch  11/25 | Train: 95.85% (0.2695) | Val: 87.11% (0.4375) | LR: 1.37e-04 | Time: 71.9s
+Epoch  12/25 | Train: 96.38% (0.2613) | Val: 87.02% (0.4393) | LR: 1.24e-04 | Time: 72.1s
+Epoch  13/25 | Train: 96.69% (0.2564) | Val: 87.22% (0.4373) | LR: 1.10e-04 | Time: 72.2s
+Epoch  14/25 | Train: 96.76% (0.2516) | Val: 87.00% (0.4384) | LR: 9.65e-05 | Time: 72.0s
+Epoch  15/25 | Train: 97.35% (0.2426) | Val: 86.24% (0.4582) | LR: 8.26e-05 | Time: 72.1s
+
+⚠ Early stopping triggered at epoch 15
+
+============================================================
+Training Complete!
+  Model: efficientnet_b4_dct
+  Total Time: 18.29 minutes
+  Best Validation Accuracy: 87.44%
+  Best model: outputs/best_model.pth
+  Training log: outputs/logs/training_log_efficientnet_b4_dct_20251226_104000.txt
+  History JSON: outputs/logs/history_efficientnet_b4_dct_20251226_104000.json
+============================================================
