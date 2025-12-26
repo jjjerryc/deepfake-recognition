@@ -91,12 +91,16 @@ class CLIPClassifier(BaseModel):
             self.embed_dim = self.encoder.output_dim
         elif hasattr(self.encoder, 'embed_dim'):
             self.embed_dim = self.encoder.embed_dim
-        elif hasattr(self.encoder, 'head'):
-            # ConvNext style
-            self.embed_dim = self.encoder.head.in_features if hasattr(self.encoder.head, 'in_features') else hidden_dim
+        elif hasattr(self.clip, 'visual') and hasattr(self.clip.visual, 'output_dim'):
+            self.embed_dim = self.clip.visual.output_dim
         else:
-            # 嘗試推斷
-            self.embed_dim = hidden_dim
+            # 動態推斷：做一次 forward pass
+            with torch.no_grad():
+                dummy_input = torch.zeros(1, 3, 224, 224)
+                dummy_output = self.encoder(dummy_input)
+                if dummy_output.dim() > 2:
+                    dummy_output = dummy_output.mean(dim=1)
+                self.embed_dim = dummy_output.shape[-1]
             
         print(f"CLIP embed_dim: {self.embed_dim}")
         
@@ -241,8 +245,16 @@ class CLIPWithDCT(BaseModel):
             self.embed_dim = self.encoder.output_dim
         elif hasattr(self.encoder, 'embed_dim'):
             self.embed_dim = self.encoder.embed_dim
+        elif hasattr(self.clip, 'visual') and hasattr(self.clip.visual, 'output_dim'):
+            self.embed_dim = self.clip.visual.output_dim
         else:
-            self.embed_dim = 512
+            # 動態推斷
+            with torch.no_grad():
+                dummy_input = torch.zeros(1, 3, 224, 224)
+                dummy_output = self.encoder(dummy_input)
+                if dummy_output.dim() > 2:
+                    dummy_output = dummy_output.mean(dim=1)
+                self.embed_dim = dummy_output.shape[-1]
             
         print(f"CLIP embed_dim: {self.embed_dim}")
         

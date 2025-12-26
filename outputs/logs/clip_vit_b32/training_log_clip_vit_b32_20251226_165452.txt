@@ -1,0 +1,71 @@
+
+============================================================
+Starting Training
+  Model: clip_vit_b32
+  Epochs: 50
+  Batch size: 64
+  Learning rate: 0.0001
+  Label smoothing: 0.1
+  Scheduler: ReduceLROnPlateau
+============================================================
+
+Epoch   1/50 | Train: 69.30% (0.5889) | Val: 75.36% (0.5442) | LR: 1.00e-04 | Time: 51.6s | ★ Best!
+Epoch   2/50 | Train: 71.51% (0.5611) | Val: 77.18% (0.5272) | LR: 1.00e-04 | Time: 51.5s | ★ Best!
+Epoch   3/50 | Train: 73.09% (0.5537) | Val: 77.24% (0.5239) | LR: 1.00e-04 | Time: 51.9s | ★ Best!
+Epoch   4/50 | Train: 73.04% (0.5511) | Val: 77.67% (0.5206) | LR: 1.00e-04 | Time: 51.8s | ★ Best!
+Epoch   5/50 | Train: 73.30% (0.5476) | Val: 77.53% (0.5200) | LR: 1.00e-04 | Time: 51.4s
+Epoch   6/50 | Train: 73.19% (0.5474) | Val: 76.64% (0.5231) | LR: 1.00e-04 | Time: 51.9s
+Epoch   7/50 | Train: 73.78% (0.5424) | Val: 78.62% (0.5108) | LR: 1.00e-04 | Time: 51.6s | ★ Best!
+Epoch   8/50 | Train: 73.08% (0.5387) | Val: 78.47% (0.5113) | LR: 1.00e-04 | Time: 52.0s
+Epoch   9/50 | Train: 74.28% (0.5361) | Val: 78.78% (0.5070) | LR: 1.00e-04 | Time: 51.8s | ★ Best!
+Epoch  10/50 | Train: 73.62% (0.5345) | Val: 78.76% (0.5061) | LR: 1.00e-04 | Time: 52.1s
+Epoch  11/50 | Train: 74.11% (0.5309) | Val: 78.89% (0.5046) | LR: 1.00e-04 | Time: 51.7s | ★ Best!
+Epoch  12/50 | Train: 74.64% (0.5288) | Val: 79.78% (0.4945) | LR: 1.00e-04 | Time: 52.3s | ★ Best!
+Epoch  13/50 | Train: 73.97% (0.5251) | Val: 79.80% (0.4920) | LR: 1.00e-04 | Time: 52.4s | ★ Best!
+Epoch  14/50 | Train: 74.96% (0.5225) | Val: 80.13% (0.4897) | LR: 1.00e-04 | Time: 51.9s | ★ Best!
+Epoch  15/50 | Train: 75.22% (0.5209) | Val: 80.60% (0.4868) | LR: 1.00e-04 | Time: 51.4s | ★ Best!
+Epoch  16/50 | Train: 74.93% (0.5239) | Val: 80.44% (0.4874) | LR: 1.00e-04 | Time: 52.5s
+Epoch  17/50 | Train: 75.90% (0.5184) | Val: 80.42% (0.4877) | LR: 1.00e-04 | Time: 51.7s
+Epoch  18/50 | Train: 75.46% (0.5168) | Val: 80.29% (0.4867) | LR: 1.00e-04 | Time: 51.4s
+Epoch  19/50 | Train: 76.20% (0.5172) | Val: 80.76% (0.4832) | LR: 1.00e-04 | Time: 51.5s | ★ Best!
+Epoch  20/50 | Train: 76.34% (0.5110) | Val: 79.93% (0.4897) | LR: 1.00e-04 | Time: 51.8s
+Epoch  21/50 | Train: 75.96% (0.5128) | Val: 81.24% (0.4783) | LR: 1.00e-04 | Time: 51.7s | ★ Best!
+Epoch  22/50 | Train: 75.86% (0.5084) | Val: 80.82% (0.4800) | LR: 1.00e-04 | Time: 52.1s
+Epoch  23/50 | Train: 76.42% (0.5083) | Val: 81.27% (0.4769) | LR: 1.00e-04 | Time: 51.8s | ★ Best!
+Epoch  24/50 | Train: 75.96% (0.5073) | Val: 81.80% (0.4732) | LR: 1.00e-04 | Time: 51.5s | ★ Best!
+Epoch  25/50 | Train: 76.34% (0.5072) | Val: 81.69% (0.4725) | LR: 1.00e-04 | Time: 52.2s
+Epoch  26/50 | Train: 76.60% (0.5071) | Val: 81.29% (0.4734) | LR: 1.00e-04 | Time: 53.3s
+Epoch  27/50 | Train: 76.50% (0.5075) | Val: 81.16% (0.4754) | LR: 1.00e-04 | Time: 52.5s
+Epoch  28/50 | Train: 77.39% (0.5020) | Val: 81.87% (0.4696) | LR: 1.00e-04 | Time: 52.3s | ★ Best!
+Epoch  29/50 | Train: 76.65% (0.5041) | Val: 82.33% (0.4667) | LR: 5.00e-05 | Time: 51.6s | ★ Best!
+Epoch  30/50 | Train: 77.20% (0.5026) | Val: 82.49% (0.4669) | LR: 5.00e-05 | Time: 52.4s | ★ Best!
+Epoch  31/50 | Train: 77.54% (0.5042) | Val: 82.42% (0.4662) | LR: 5.00e-05 | Time: 52.3s
+Epoch  32/50 | Train: 76.75% (0.5020) | Val: 82.47% (0.4664) | LR: 5.00e-05 | Time: 52.0s
+Epoch  33/50 | Train: 77.03% (0.4988) | Val: 82.27% (0.4664) | LR: 5.00e-05 | Time: 52.7s
+Epoch  34/50 | Train: 77.39% (0.4991) | Val: 81.76% (0.4698) | LR: 5.00e-05 | Time: 53.5s
+Epoch  35/50 | Train: 77.07% (0.5039) | Val: 82.40% (0.4654) | LR: 2.50e-05 | Time: 52.8s
+Epoch  36/50 | Train: 76.96% (0.5000) | Val: 82.60% (0.4648) | LR: 2.50e-05 | Time: 53.1s | ★ Best!
+Epoch  37/50 | Train: 77.97% (0.4971) | Val: 82.53% (0.4646) | LR: 2.50e-05 | Time: 52.7s
+Epoch  38/50 | Train: 76.81% (0.4957) | Val: 82.51% (0.4658) | LR: 2.50e-05 | Time: 53.2s
+Epoch  39/50 | Train: 77.28% (0.5004) | Val: 82.60% (0.4656) | LR: 2.50e-05 | Time: 53.3s
+Epoch  40/50 | Train: 77.48% (0.5000) | Val: 82.67% (0.4625) | LR: 2.50e-05 | Time: 53.0s | ★ Best!
+Epoch  41/50 | Train: 77.44% (0.4978) | Val: 82.69% (0.4637) | LR: 1.25e-05 | Time: 53.1s | ★ Best!
+Epoch  42/50 | Train: 76.52% (0.4967) | Val: 82.73% (0.4637) | LR: 1.25e-05 | Time: 53.4s | ★ Best!
+Epoch  43/50 | Train: 77.96% (0.4944) | Val: 82.69% (0.4632) | LR: 1.25e-05 | Time: 53.3s
+Epoch  44/50 | Train: 77.20% (0.4963) | Val: 82.58% (0.4627) | LR: 1.25e-05 | Time: 52.7s
+Epoch  45/50 | Train: 77.45% (0.4948) | Val: 82.64% (0.4623) | LR: 1.25e-05 | Time: 52.7s
+Epoch  46/50 | Train: 77.63% (0.4961) | Val: 82.67% (0.4627) | LR: 6.25e-06 | Time: 53.6s
+Epoch  47/50 | Train: 77.09% (0.4964) | Val: 82.80% (0.4630) | LR: 6.25e-06 | Time: 52.4s | ★ Best!
+Epoch  48/50 | Train: 78.18% (0.4926) | Val: 82.89% (0.4625) | LR: 6.25e-06 | Time: 52.2s | ★ Best!
+Epoch  49/50 | Train: 77.30% (0.4969) | Val: 82.96% (0.4627) | LR: 6.25e-06 | Time: 52.0s | ★ Best!
+Epoch  50/50 | Train: 76.90% (0.4957) | Val: 82.78% (0.4632) | LR: 6.25e-06 | Time: 51.9s
+
+============================================================
+Training Complete!
+  Model: clip_vit_b32
+  Total Time: 43.76 minutes
+  Best Validation Accuracy: 82.96%
+  Best model: outputs/clip_vit_b32/best_model.pth
+  Training log: outputs/logs/clip_vit_b32/training_log_clip_vit_b32_20251226_165452.txt
+  History JSON: outputs/logs/clip_vit_b32/history_clip_vit_b32_20251226_165452.json
+============================================================

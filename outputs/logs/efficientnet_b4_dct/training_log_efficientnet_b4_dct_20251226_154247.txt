@@ -34,3 +34,38 @@ Epoch  22/50 | Train: 80.05% (0.4519) | Val: 82.98% (0.4510) | LR: 1.00e-05 | Ti
 Epoch  23/50 | Train: 80.23% (0.4514) | Val: 83.13% (0.4524) | LR: 1.00e-05 | Time: 71.1s | ★ Best!
 Epoch  24/50 | Train: 80.03% (0.4456) | Val: 83.44% (0.4493) | LR: 1.00e-05 | Time: 71.0s | ★ Best!
 Epoch  25/50 | Train: 80.26% (0.4489) | Val: 83.67% (0.4433) | LR: 1.00e-05 | Time: 71.0s | ★ Best!
+Epoch  26/50 | Train: 81.53% (0.4420) | Val: 83.60% (0.4478) | LR: 1.00e-05 | Time: 70.8s
+Epoch  27/50 | Train: 81.29% (0.4415) | Val: 83.71% (0.4479) | LR: 1.00e-05 | Time: 70.9s | ★ Best!
+Epoch  28/50 | Train: 82.16% (0.4346) | Val: 84.29% (0.4436) | LR: 1.00e-05 | Time: 71.3s | ★ Best!
+Epoch  29/50 | Train: 81.58% (0.4351) | Val: 84.22% (0.4414) | LR: 1.00e-05 | Time: 70.9s
+Epoch  30/50 | Train: 82.32% (0.4312) | Val: 84.42% (0.4376) | LR: 1.00e-05 | Time: 71.7s | ★ Best!
+Epoch  31/50 | Train: 82.87% (0.4298) | Val: 84.42% (0.4368) | LR: 1.00e-05 | Time: 71.7s
+Epoch  32/50 | Train: 81.60% (0.4254) | Val: 84.58% (0.4351) | LR: 1.00e-05 | Time: 71.7s | ★ Best!
+Epoch  33/50 | Train: 82.30% (0.4186) | Val: 84.53% (0.4342) | LR: 1.00e-05 | Time: 71.7s
+Epoch  34/50 | Train: 82.82% (0.4197) | Val: 84.53% (0.4344) | LR: 1.00e-05 | Time: 71.8s
+Epoch  35/50 | Train: 83.03% (0.4187) | Val: 84.93% (0.4321) | LR: 1.00e-05 | Time: 71.8s | ★ Best!
+Epoch  36/50 | Train: 83.06% (0.4139) | Val: 85.07% (0.4324) | LR: 1.00e-05 | Time: 71.3s | ★ Best!
+Epoch  37/50 | Train: 84.34% (0.4087) | Val: 85.18% (0.4308) | LR: 1.00e-05 | Time: 71.4s | ★ Best!
+Epoch  38/50 | Train: 83.15% (0.4052) | Val: 85.02% (0.4317) | LR: 1.00e-05 | Time: 71.4s
+Epoch  39/50 | Train: 83.90% (0.4065) | Val: 85.13% (0.4307) | LR: 1.00e-05 | Time: 71.6s
+Epoch  40/50 | Train: 84.19% (0.4083) | Val: 85.53% (0.4299) | LR: 1.00e-05 | Time: 71.6s | ★ Best!
+Epoch  41/50 | Train: 84.49% (0.4048) | Val: 84.93% (0.4334) | LR: 1.00e-05 | Time: 71.2s
+Epoch  42/50 | Train: 83.53% (0.3987) | Val: 85.42% (0.4286) | LR: 1.00e-05 | Time: 71.5s
+Epoch  43/50 | Train: 85.12% (0.3926) | Val: 85.16% (0.4318) | LR: 1.00e-05 | Time: 71.8s
+Epoch  44/50 | Train: 84.00% (0.3912) | Val: 85.51% (0.4280) | LR: 1.00e-05 | Time: 71.7s
+Epoch  45/50 | Train: 84.66% (0.3859) | Val: 85.31% (0.4320) | LR: 5.00e-06 | Time: 71.4s
+Epoch  46/50 | Train: 84.99% (0.3897) | Val: 85.51% (0.4314) | LR: 5.00e-06 | Time: 71.7s
+Epoch  47/50 | Train: 84.95% (0.3868) | Val: 85.60% (0.4304) | LR: 5.00e-06 | Time: 71.6s | ★ Best!
+Epoch  48/50 | Train: 85.47% (0.3848) | Val: 85.42% (0.4334) | LR: 5.00e-06 | Time: 71.7s
+Epoch  49/50 | Train: 84.80% (0.3880) | Val: 85.76% (0.4307) | LR: 2.50e-06 | Time: 71.6s | ★ Best!
+Epoch  50/50 | Train: 84.50% (0.3873) | Val: 85.73% (0.4287) | LR: 2.50e-06 | Time: 71.7s
+
+============================================================
+Training Complete!
+  Model: efficientnet_b4_dct
+  Total Time: 60.13 minutes
+  Best Validation Accuracy: 85.76%
+  Best model: outputs/efficientnet_b4_dct/best_model.pth
+  Training log: outputs/logs/efficientnet_b4_dct/training_log_efficientnet_b4_dct_20251226_154247.txt
+  History JSON: outputs/logs/efficientnet_b4_dct/history_efficientnet_b4_dct_20251226_154247.json
+============================================================

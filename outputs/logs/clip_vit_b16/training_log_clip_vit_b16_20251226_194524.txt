@@ -1,0 +1,23 @@
+
+============================================================
+Starting Training
+  Model: clip_vit_b16
+  Epochs: 50
+  Batch size: 64
+  Learning rate: 0.0001
+  Label smoothing: 0.1
+  Scheduler: OneCycleLR
+============================================================
+
+Epoch   1/50 | Train: 63.14% (0.6487) | Val: 73.42% (0.5824) | LR: 2.64e-05 | Time: 62.0s | ★ Best!
+Epoch   2/50 | Train: 72.87% (0.5755) | Val: 77.53% (0.5346) | LR: 7.44e-05 | Time: 62.1s | ★ Best!
+Epoch   3/50 | Train: 75.64% (0.5481) | Val: 78.78% (0.5162) | LR: 1.34e-04 | Time: 62.6s | ★ Best!
+Epoch   4/50 | Train: 76.50% (0.5372) | Val: 79.62% (0.5066) | LR: 1.82e-04 | Time: 62.3s | ★ Best!
+Epoch   5/50 | Train: 76.85% (0.5310) | Val: 79.89% (0.5058) | LR: 2.00e-04 | Time: 62.4s | ★ Best!
+Epoch   6/50 | Train: 77.53% (0.5237) | Val: 79.69% (0.4957) | LR: 2.00e-04 | Time: 62.7s
+Epoch   7/50 | Train: 77.74% (0.5192) | Val: 80.67% (0.4904) | LR: 1.99e-04 | Time: 62.5s | ★ Best!
+Epoch   8/50 | Train: 78.42% (0.5126) | Val: 80.82% (0.4853) | LR: 1.98e-04 | Time: 63.4s | ★ Best!
+Epoch   9/50 | Train: 79.08% (0.5057) | Val: 81.89% (0.4765) | LR: 1.96e-04 | Time: 63.1s | ★ Best!
+Epoch  10/50 | Train: 79.19% (0.5050) | Val: 82.22% (0.4736) | LR: 1.94e-04 | Time: 70.8s | ★ Best!
+Epoch  11/50 | Train: 79.56% (0.5010) | Val: 82.22% (0.4717) | LR: 1.91e-04 | Time: 69.7s
+Epoch  12/50 | Train: 79.69% (0.4972) | Val: 82.29% (0.4709) | LR: 1.88e-04 | Time: 65.0s | ★ Best!

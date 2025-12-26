@@ -1,0 +1,37 @@
+{
+  "model_name": "clip_vit_b32",
+  "config": {
+    "batch_size": 64,
+    "learning_rate": 0.0001,
+    "image_size": 224
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 0.6029,
+      "train_acc": 68.14,
+      "val_loss": 0.5488,
+      "val_acc": 75.07,
+      "lr": 0.0001,
+      "time": 51.1
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.5732,
+      "train_acc": 70.72,
+      "val_loss": 0.5364,
+      "val_acc": 76.38,
+      "lr": 0.0001,
+      "time": 52.3
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.5659,
+      "train_acc": 71.9,
+      "val_loss": 0.5321,
+      "val_acc": 76.62,
+      "lr": 0.0001,
+      "time": 51.9
+    }
+  ]
+}

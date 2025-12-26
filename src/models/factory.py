@@ -199,28 +199,34 @@ def create_model(
             **kwargs
         )
     
-    # 對於 CLIP 模型
+    # 對於 CLIP 模型，過濾掉不支援的參數
     if CLIP_AVAILABLE and model_class == CLIPClassifier:
         clip_cfg = CLIP_CONFIGS.get(model_name, {})
+        # CLIP 只支援這些參數
+        clip_kwargs = {k: v for k, v in kwargs.items() 
+                       if k in ('dropout', 'hidden_dim', 'freeze_encoder')}
         return model_class(
             clip_model=clip_cfg.get('model_name', 'ViT-B-32'),
             pretrained=clip_cfg.get('pretrained', 'openai'),
             num_classes=num_classes,
             freeze_encoder=True,  # 預設凍結
-            **kwargs
+            **clip_kwargs
         )
     
-    # 對於 CLIP + DCT 模型
+    # 對於 CLIP + DCT 模型，過濾掉不支援的參數
     if CLIP_AVAILABLE and model_class == CLIPWithDCT:
         model_cfg = MODEL_CONFIGS.get(model_name, {})
+        # CLIP+DCT 支援的參數
+        clip_dct_kwargs = {k: v for k, v in kwargs.items() 
+                          if k in ('dropout', 'dct_dim', 'fusion_dim', 'freeze_encoder')}
         return model_class(
             clip_model=model_cfg.get('clip_model', 'ViT-B-32'),
             pretrained=model_cfg.get('pretrained', 'openai'),
             num_classes=num_classes,
-            dct_dim=model_cfg.get('dct_dim', 128),
-            fusion_dim=model_cfg.get('fusion_dim', 512),
+            dct_dim=clip_dct_kwargs.pop('dct_dim', model_cfg.get('dct_dim', 128)),
+            fusion_dim=clip_dct_kwargs.pop('fusion_dim', model_cfg.get('fusion_dim', 512)),
             freeze_encoder=True,
-            **kwargs
+            **clip_dct_kwargs
         )
     
     # 其他模型直接創建

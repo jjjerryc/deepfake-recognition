@@ -483,9 +483,31 @@ def main():
     # 載入配置
     config = load_config(args.config)
     
-    # 命令行參數覆蓋
+    # 命令行參數覆蓋模型名稱（需要先處理，才能判斷模型類型）
     if args.model:
         config['model']['name'] = args.model
+    
+    # 根據模型類型選擇對應的訓練參數
+    model_name = config['model']['name']
+    is_clip_model = model_name.startswith('clip_')
+    
+    if is_clip_model:
+        # 使用 CLIP 專用參數（如果存在）
+        if 'training_clip' in config:
+            print(f"[Info] Detected CLIP model: {model_name}")
+            print(f"[Info] Using CLIP-specific training parameters")
+            # 合併 CLIP 參數（CLIP 參數覆蓋預設參數）
+            for key, value in config['training_clip'].items():
+                if not key.startswith('_'):  # 跳過註解
+                    config['training'][key] = value
+        
+        if 'scheduler_clip' in config:
+            print(f"[Info] Using CLIP-specific scheduler parameters")
+            for key, value in config['scheduler_clip'].items():
+                if not key.startswith('_'):
+                    config['scheduler'][key] = value
+    
+    # 其他命令行參數覆蓋
     if args.epochs:
         config['training']['epochs'] = args.epochs
     if args.batch_size:

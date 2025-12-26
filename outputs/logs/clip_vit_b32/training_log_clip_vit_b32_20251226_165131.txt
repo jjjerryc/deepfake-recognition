@@ -1,0 +1,14 @@
+
+============================================================
+Starting Training
+  Model: clip_vit_b32
+  Epochs: 50
+  Batch size: 64
+  Learning rate: 0.0001
+  Label smoothing: 0.1
+  Scheduler: ReduceLROnPlateau
+============================================================
+
+Epoch   1/50 | Train: 68.14% (0.6029) | Val: 75.07% (0.5488) | LR: 1.00e-04 | Time: 51.1s | ★ Best!
+Epoch   2/50 | Train: 70.72% (0.5732) | Val: 76.38% (0.5364) | LR: 1.00e-04 | Time: 52.3s | ★ Best!
+Epoch   3/50 | Train: 71.90% (0.5659) | Val: 76.62% (0.5321) | LR: 1.00e-04 | Time: 51.9s | ★ Best!

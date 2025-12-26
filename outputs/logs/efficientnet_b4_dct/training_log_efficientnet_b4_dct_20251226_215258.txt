@@ -1,0 +1,11 @@
+
+============================================================
+Starting Training
+  Model: efficientnet_b4_dct
+  Epochs: 50
+  Batch size: 64
+  Learning rate: 0.0001
+  Label smoothing: 0.1
+  Scheduler: OneCycleLR
+============================================================
+

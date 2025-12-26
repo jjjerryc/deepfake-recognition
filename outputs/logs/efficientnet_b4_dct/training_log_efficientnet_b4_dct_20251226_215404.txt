@@ -1,0 +1,25 @@
+
+============================================================
+Starting Training
+  Model: efficientnet_b4_dct
+  Epochs: 50
+  Batch size: 64
+  Learning rate: 0.0001
+  Label smoothing: 0.1
+  Scheduler: OneCycleLR
+============================================================
+
+Epoch   1/50 | Train: 59.79% (0.7176) | Val: 71.71% (0.5951) | LR: 2.64e-05 | Time: 83.1s | ★ Best!
+Epoch   2/50 | Train: 69.34% (0.6064) | Val: 74.87% (0.5415) | LR: 7.44e-05 | Time: 71.2s | ★ Best!
+Epoch   3/50 | Train: 74.00% (0.5497) | Val: 79.27% (0.4958) | LR: 1.34e-04 | Time: 72.2s | ★ Best!
+Epoch   4/50 | Train: 78.55% (0.5017) | Val: 81.82% (0.4656) | LR: 1.82e-04 | Time: 71.7s | ★ Best!
+Epoch   5/50 | Train: 82.04% (0.4588) | Val: 84.96% (0.4313) | LR: 2.00e-04 | Time: 73.3s | ★ Best!
+Epoch   6/50 | Train: 84.17% (0.4208) | Val: 84.93% (0.4249) | LR: 2.00e-04 | Time: 73.2s
+Epoch   7/50 | Train: 86.85% (0.3913) | Val: 86.71% (0.4105) | LR: 1.99e-04 | Time: 72.6s | ★ Best!
+Epoch   8/50 | Train: 88.57% (0.3653) | Val: 86.38% (0.4141) | LR: 1.98e-04 | Time: 72.5s
+Epoch   9/50 | Train: 89.60% (0.3494) | Val: 86.04% (0.4268) | LR: 1.96e-04 | Time: 72.6s
+Epoch  10/50 | Train: 91.44% (0.3269) | Val: 86.29% (0.4245) | LR: 1.94e-04 | Time: 73.2s
+Epoch  11/50 | Train: 91.43% (0.3128) | Val: 86.36% (0.4371) | LR: 1.91e-04 | Time: 72.4s
+Epoch  12/50 | Train: 92.65% (0.3026) | Val: 86.44% (0.4359) | LR: 1.88e-04 | Time: 72.2s
+Epoch  13/50 | Train: 92.56% (0.2916) | Val: 86.47% (0.4395) | LR: 1.85e-04 | Time: 72.1s
+Epoch  14/50 | Train: 93.02% (0.2852) | Val: 86.73% (0.4425) | LR: 1.81e-04 | Time: 72.1s | ★ Best!

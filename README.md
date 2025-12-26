@@ -270,6 +270,7 @@ CLIP 模型在大規模圖像-文字配對上預訓練，具有：
 python -m src.train --model efficientnet_b4_dct
 python -m src.train --model clip_vit_b32 --freeze-backbone
 python -m src.train --model clip_vit_b16 --freeze-backbone
+python -m src.train --model clip_vit_b32_dct --freeze-backbone
 
 # 2. 執行 ensemble 推論
 python -m src.ensemble_inference --auto-weight

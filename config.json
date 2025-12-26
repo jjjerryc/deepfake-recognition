@@ -15,7 +15,7 @@
     },
     
     "model": {
-        "name": "efficientnet_b0_dct",
+        "name": "efficientnet_b4_dct",
         "_available_models": [
             "efficientnet_b0", "efficientnet_b1", "efficientnet_b2", "efficientnet_b3", "efficientnet_b4",
             "efficientnet_b0_dct", "efficientnet_b1_dct", "efficientnet_b2_dct", "efficientnet_b3_dct", "efficientnet_b4_dct",
@@ -26,13 +26,13 @@
         "num_classes": 2,
         "pretrained": true,
         "dropout": 0.5,
-        "_comment_dropout": "提高 dropout 到 0.5 加強正則化，防止過擬合",
         "drop_path_rate": 0.2,
         "dct_dim": 128,
         "fusion_dim": 512
     },
     
     "training": {
+        "_comment": "以下為 EfficientNet 系列的訓練參數",
         "batch_size": 64,
         "epochs": 50,
         "learning_rate": 1e-4,
@@ -41,9 +41,31 @@
         "patience": 10,
         "min_delta": 0.001,
         "seed": 42,
-        "gradient_clip": 1.0,
+        "gradient_clip": 5.0,
         "label_smoothing": 0.1,
         "warmup_epochs": 2
+    },
+    
+    "training_clip": {
+        "_comment": "CLIP 模型專用訓練參數（凍結 backbone，只訓練分類頭）",
+        "batch_size": 128,
+        "epochs": 30,
+        "learning_rate": 1e-3,
+        "backbone_lr_multiplier": 0.0,
+        "weight_decay": 0.01,
+        "patience": 8,
+        "min_delta": 0.001,
+        "seed": 42,
+        "gradient_clip": 5.0,
+        "label_smoothing": 0.05,
+        "warmup_epochs": 1,
+        "freeze_backbone": true,
+        "_tips": [
+            "CLIP 只訓練分類頭 (~300K 參數)，所以可以用更大的 batch_size 和學習率",
+            "較小的 weight_decay 因為參數少",
+            "較小的 label_smoothing 因為 CLIP 特徵已經很好",
+            "freeze_backbone=true 會自動凍結 CLIP encoder"
+        ]
     },
     
     "optimizer": {
@@ -53,30 +75,52 @@
     },
     
     "scheduler": {
-        "type": "ReduceLROnPlateau",
+        "_comment": "EfficientNet 使用的調度器設定",
+        "type": "OneCycleLR",
+        "_available_types": ["ReduceLROnPlateau", "OneCycleLR", "CosineAnnealingLR", "CosineAnnealingWarmRestarts", "StepLR"],
+        
+        "_comment_ReduceLROnPlateau": "根據驗證指標自適應調整學習率，適合長時間訓練",
         "mode": "max",
         "factor": 0.5,
         "patience": 3,
         "min_lr": 1e-6,
-        "threshold": 0.001
+        "threshold": 0.001,
+        
+        "_comment_OneCycleLR": "快速收斂，適合短時間訓練，每個 batch 更新一次",
+        "max_lr": 2e-4,
+        "pct_start": 0.1,
+        "anneal_strategy": "cos",
+        "div_factor": 25,
+        "final_div_factor": 1000
+    },
+    
+    "scheduler_clip": {
+        "_comment": "CLIP 模型專用調度器設定",
+        "type": "ReduceLROnPlateau",
+        "mode": "max",
+        "factor": 0.5,
+        "patience": 5,
+        "min_lr": 1e-6,
+        "threshold": 0.001,
+        "_tips": "CLIP 分類頭訓練穩定，ReduceLROnPlateau 更適合監控收斂"
     },
     
     "augmentation": {
         "train": {
-            "horizontal_flip": 0.5,
+            "horizontal_flip": 0.4,
             "vertical_flip": 0.0,
             "rotation_degrees": 15,
             "brightness": 0.3,
             "contrast": 0.3,
             "saturation": 0.2,
             "hue": 0.1,
-            "random_erasing": 0.2,
+            "random_erasing": 0.15,
             "gaussian_blur": 0.1,
             "random_crop_scale": [0.8, 1.0],
             "jpeg_quality": [70, 100],
-            "mixup_alpha": 0.1,
-            "cutmix_alpha": 0.0,
-            "mix_prob": 0.2
+            "mixup_alpha": 0.4,
+            "cutmix_alpha": 0.2,
+            "mix_prob": 0.3
         },
         "test": {
             "tta_enabled": true,
@@ -130,25 +174,19 @@
             {
                 "name": "efficientnet_b4_dct",
                 "checkpoint": "./outputs/efficientnet_b4_dct/best_model.pth",
-                "weight": 0.3,
+                "weight": 0.4,
                 "_comment": "DCT 頻域特徵，擅長捕捉壓縮偽影"
             },
             {
                 "name": "clip_vit_b32",
                 "checkpoint": "./outputs/clip_vit_b32/best_model.pth",
-                "weight": 0.25,
+                "weight": 0.3,
                 "_comment": "CLIP ViT-B/32，良好的跨域泛化能力"
-            },
-            {
-                "name": "clip_vit_b16",
-                "checkpoint": "./outputs/clip_vit_b16/best_model.pth",
-                "weight": 0.25,
-                "_comment": "CLIP ViT-B/16，更高解析度的 patch"
             },
             {
                 "name": "clip_vit_b32_dct",
                 "checkpoint": "./outputs/clip_vit_b32_dct/best_model.pth",
-                "weight": 0.2,
+                "weight": 0.3,
                 "_comment": "CLIP + DCT 混合模型"
             }
         ],
