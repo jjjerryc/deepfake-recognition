@@ -36,6 +36,7 @@ scheduler:
 
 # 資料增強
 augmentation:
+  mode: std  # "std" 或 "hard"
   train:
     horizontal_flip: 0.5
     vertical_flip: 0.0
@@ -50,6 +51,7 @@ augmentation:
       sigma: [0.1, 2.0]
       probability: 0.2
     random_crop_scale: [0.9, 1.0]
+    random_erasing: 0.0  # Random Erasing 機率
   
   # Hard 增強 (用於抗噪專家)
   hard:
