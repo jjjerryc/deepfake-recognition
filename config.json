@@ -15,7 +15,7 @@
     },
     
     "model": {
-        "name": "efficientnet_b4_dct",
+        "name": "clip_convnext_base",
         "_available_models": [
             "efficientnet_b0", "efficientnet_b1", "efficientnet_b2", "efficientnet_b3", "efficientnet_b4",
             "efficientnet_b0_dct", "efficientnet_b1_dct", "efficientnet_b2_dct", "efficientnet_b3_dct", "efficientnet_b4_dct",

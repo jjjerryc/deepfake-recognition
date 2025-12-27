@@ -1,0 +1,38 @@
+# DINOv2 ViT-Large/14 配置
+# 基於同學的高分方法 (87%)
+
+_base_: "base.yaml"
+
+model:
+  name: "dino_vitl14"
+  type: "dino"
+  backbone: "dinov2_vitl14"
+  embed_dim: 1024
+  num_classes: 2
+  
+  # 解凍策略
+  unfreeze_layers: 2          # 解凍最後 N 層 transformer blocks
+  unfreeze_norm: true         # 解凍 LayerNorm
+  
+  # 分類頭
+  head:
+    hidden_dim: 512
+    dropout: 0.4
+    use_batchnorm: true
+    activation: "relu"
+
+# 覆蓋訓練設定
+training:
+  batch_size: 8               # DINOv2-L 較大，用小 batch
+  epochs: 4                   # 同學用 4 epochs
+  learning_rate: 1e-4         # head 學習率
+  backbone_lr_multiplier: 0.1 # backbone 用 1e-5
+  
+# 預處理 (ImageNet 標準)
+preprocessing:
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+
+# 此模型專用增強
+augmentation:
+  mode: "std"                 # std 或 hard

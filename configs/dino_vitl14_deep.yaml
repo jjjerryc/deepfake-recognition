@@ -1,0 +1,11 @@
+# DINOv2 ViT-Large/14 - 深層解凍版本
+# 解凍更多層，學習率更小
+
+_base_: "dino_vitl14.yaml"
+
+model:
+  name: "dino_vitl14_deep"
+  unfreeze_layers: 5          # 解凍最後 5 層
+
+training:
+  backbone_lr_multiplier: 0.05  # 解凍越多，LR 越小 (5e-6)

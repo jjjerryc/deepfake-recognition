@@ -9,6 +9,8 @@
 - EfficientNet-B0~B4-DCT-Attn: 帶交叉注意力的頻域融合模型
 - CLIP-ViT-B32/B16/L14: CLIP 視覺編碼器 + 分類頭，更好的泛化能力
 - CLIP-ViT-B32/B16-DCT: CLIP + DCT 頻域融合
+- DINOv2-ViT-S/B/L/G: 自監督視覺模型，對底層視覺結構敏感
+- ConvNeXt-V2: 現代化 CNN，擅長紋理特徵
 
 使用方式:
     from src.models import create_model, list_available_models
@@ -36,6 +38,20 @@ try:
 except ImportError:
     CLIP_AVAILABLE = False
 
+# 嘗試導入 DINOv2 模型
+try:
+    from .dino_model import DINOv2Classifier, DINO_CONFIGS
+    DINO_AVAILABLE = True
+except ImportError:
+    DINO_AVAILABLE = False
+
+# 嘗試導入 ConvNeXt 模型
+try:
+    from .convnext_model import ConvNeXtClassifier, CONVNEXT_CONFIGS
+    CONVNEXT_AVAILABLE = True
+except ImportError:
+    CONVNEXT_AVAILABLE = False
+
 __all__ = [
     'create_model',
     'create_model_from_config',
@@ -54,3 +70,12 @@ __all__ = [
 # 如果 CLIP 可用，加入 export
 if CLIP_AVAILABLE:
     __all__.extend(['CLIPClassifier', 'CLIPWithDCT'])
+
+# 如果 DINOv2 可用，加入 export
+if DINO_AVAILABLE:
+    __all__.extend(['DINOv2Classifier', 'DINO_CONFIGS'])
+
+# 如果 ConvNeXt 可用，加入 export
+if CONVNEXT_AVAILABLE:
+    __all__.extend(['ConvNeXtClassifier', 'CONVNEXT_CONFIGS'])
+

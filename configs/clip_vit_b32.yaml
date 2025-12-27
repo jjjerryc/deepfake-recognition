@@ -1,0 +1,35 @@
+# CLIP ViT-B/32 配置
+# 語義理解專家，跨域泛化能力強
+
+_base_: "base.yaml"
+
+model:
+  name: "clip_vit_b32"
+  type: "clip"
+  backbone: "ViT-B-32"
+  pretrained: "openai"
+  embed_dim: 512
+  num_classes: 2
+  
+  # 凍結策略
+  freeze_backbone: true       # 凍結 encoder
+  unfreeze_layers: 0
+  
+  # 分類頭
+  head:
+    hidden_dim: 512
+    dropout: 0.5
+    use_batchnorm: false
+    activation: "gelu"
+
+training:
+  batch_size: 128             # 凍結時可用大 batch
+  epochs: 30
+  learning_rate: 1e-3         # 只訓練 head，可用大 LR
+  backbone_lr_multiplier: 0.0
+  weight_decay: 0.01
+  label_smoothing: 0.05
+
+preprocessing:
+  mean: [0.48145466, 0.4578275, 0.40821073]
+  std: [0.26862954, 0.26130258, 0.27577711]

@@ -30,6 +30,22 @@ except ImportError:
     CLIP_AVAILABLE = False
     CLIP_CONFIGS = {}
 
+# 嘗試載入 DINOv2 模型（可選）
+try:
+    from .dino_model import DINOv2Classifier, DINO_CONFIGS
+    DINO_AVAILABLE = True
+except ImportError:
+    DINO_AVAILABLE = False
+    DINO_CONFIGS = {}
+
+# 嘗試載入 ConvNeXt 模型（可選）
+try:
+    from .convnext_model import ConvNeXtClassifier, CONVNEXT_CONFIGS
+    CONVNEXT_AVAILABLE = True
+except ImportError:
+    CONVNEXT_AVAILABLE = False
+    CONVNEXT_CONFIGS = {}
+
 
 # 模型註冊表
 MODEL_REGISTRY: Dict[str, Type[BaseModel]] = {}
@@ -120,6 +136,26 @@ if CLIP_AVAILABLE:
             'fusion_dim': 512,
         }
     )
+
+
+# 註冊 DINOv2 系列模型
+if DINO_AVAILABLE:
+    for dino_name, dino_cfg in DINO_CONFIGS.items():
+        register_model(
+            name=dino_name,
+            model_class=DINOv2Classifier,
+            config=dino_cfg
+        )
+
+
+# 註冊 ConvNeXt 系列模型
+if CONVNEXT_AVAILABLE:
+    for convnext_name, convnext_cfg in CONVNEXT_CONFIGS.items():
+        register_model(
+            name=convnext_name,
+            model_class=ConvNeXtClassifier,
+            config=convnext_cfg
+        )
 
 
 def list_available_models() -> List[str]:

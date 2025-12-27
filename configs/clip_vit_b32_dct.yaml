@@ -1,0 +1,15 @@
+# CLIP ViT-B/32 + DCT 配置
+# 結合語義特徵和頻域特徵
+
+_base_: "clip_vit_b32_unfreeze.yaml"
+
+model:
+  name: "clip_vit_b32_dct"
+  use_dct: true
+  
+  dct:
+    dim: 128
+    
+  fusion:
+    dim: 512
+    dropout: 0.3

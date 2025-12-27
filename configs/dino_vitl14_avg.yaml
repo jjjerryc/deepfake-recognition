@@ -1,0 +1,9 @@
+# DINOv2 ViT-Large/14 - 全局池化版本
+# 使用 patch tokens 平均值而非 CLS token
+
+_base_: "dino_vitl14.yaml"
+
+model:
+  name: "dino_vitl14_avg"
+  unfreeze_layers: 2
+  pooling: "avg"              # 使用 patch tokens 平均 (預設是 cls)

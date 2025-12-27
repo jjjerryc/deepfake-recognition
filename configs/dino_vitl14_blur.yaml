@@ -1,0 +1,11 @@
+# DINOv2 ViT-Large/14 - 抗噪專家版本
+# 使用強力模糊增強，強迫模型忽略細節雜訊
+
+_base_: "dino_vitl14.yaml"
+
+model:
+  name: "dino_vitl14_blur"
+  unfreeze_layers: 2
+
+augmentation:
+  mode: "hard"                # 使用強增強

@@ -1,0 +1,16 @@
+# CLIP ViT-B/32 + 解凍配置
+# 解凍最後 3 層，類似 clip_dct_unfreeze.py
+
+_base_: "clip_vit_b32.yaml"
+
+model:
+  name: "clip_vit_b32_unfreeze"
+  freeze_backbone: false
+  unfreeze_layers: 3          # 解凍最後 3 層
+
+training:
+  batch_size: 64
+  epochs: 30
+  learning_rate: 5e-5
+  backbone_lr_multiplier: 0.1
+  patience: 10

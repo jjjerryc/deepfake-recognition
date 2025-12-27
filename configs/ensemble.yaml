@@ -1,0 +1,59 @@
+# Ensemble 配置
+# 定義集成策略和模型權重
+
+ensemble:
+  # 集成策略: average, weighted_average, vote, hierarchical
+  strategy: "hierarchical"
+  
+  # 階層式集成設定 (類似同學的做法)
+  hierarchical:
+    # 第一層：各陣營內部平均
+    groups:
+      - name: "dino_camp"
+        weight: 0.7
+        models:
+          - "dino_vitl14"
+          - "dino_vitl14_deep"
+          - "dino_vitl14_blur"
+          - "dino_vitl14_avg"
+      
+      - name: "cnn_camp"
+        weight: 0.3
+        models:
+          - "convnext_base"
+
+  # 簡單加權平均設定 (備用)
+  weighted_average:
+    models:
+      - name: "dino_vitl14"
+        weight: 0.2
+      - name: "dino_vitl14_deep"
+        weight: 0.15
+      - name: "dino_vitl14_blur"
+        weight: 0.15
+      - name: "convnext_base"
+        weight: 0.15
+      - name: "clip_vit_b32_dct"
+        weight: 0.15
+      - name: "efficientnet_b4_dct"
+        weight: 0.2
+
+# TTA 設定
+tta:
+  enabled: true
+  transforms:
+    - "original"
+    - "hflip"
+    - "scale_1.1"
+    - "scale_1.1_hflip"
+
+# 輸出設定
+output:
+  save_dir: "./outputs/ensemble"
+  save_individual: true       # 保存各模型預測
+  save_probs: true           # 保存機率值
+
+# 閾值設定
+threshold:
+  method: "median"           # fixed, median, optimal
+  value: 0.5                 # method=fixed 時使用

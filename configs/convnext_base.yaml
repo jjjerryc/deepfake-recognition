@@ -1,0 +1,32 @@
+# ConvNeXt V2 Base 配置
+# CNN 架構，擅長捕捉紋理特徵
+
+_base_: "base.yaml"
+
+model:
+  name: "convnext_base"
+  type: "convnext"
+  backbone: "convnextv2_base"
+  embed_dim: 1024
+  num_classes: 2
+  pretrained: true
+  
+  # ConvNeXt 不需要解凍策略，預設全部訓練
+  freeze_backbone: false
+  
+  # 分類頭
+  head:
+    hidden_dim: 512
+    dropout: 0.4
+    use_batchnorm: true
+    activation: "relu"
+
+training:
+  batch_size: 16
+  epochs: 4
+  learning_rate: 5e-5         # CNN 統一學習率
+  backbone_lr_multiplier: 1.0 # 不用分層
+
+preprocessing:
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]

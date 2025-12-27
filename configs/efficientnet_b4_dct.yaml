@@ -1,0 +1,42 @@
+# EfficientNet-B4 + DCT 配置
+# 您原本的主力模型
+
+_base_: "base.yaml"
+
+model:
+  name: "efficientnet_b4_dct"
+  type: "efficientnet_dct"
+  backbone: "efficientnet_b4"
+  embed_dim: 1792             # EfficientNet-B4 輸出維度
+  num_classes: 2
+  pretrained: true
+  
+  # 解凍策略
+  freeze_backbone: false
+  
+  # DCT 設定
+  dct:
+    dim: 128
+  
+  # 融合設定
+  fusion:
+    dim: 512
+    dropout: 0.3
+
+training:
+  batch_size: 64
+  epochs: 50
+  learning_rate: 1e-4
+  backbone_lr_multiplier: 0.1
+  weight_decay: 0.05
+  label_smoothing: 0.1
+
+preprocessing:
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+
+augmentation:
+  train:
+    mixup_alpha: 0.1
+    cutmix_alpha: 0.0
+    mix_prob: 0.2

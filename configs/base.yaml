@@ -1,0 +1,75 @@
+# 基礎配置 - 所有模型共用的預設值
+# 其他模型配置會繼承並覆蓋這些設定
+
+# 資料設定
+data:
+  data_path: "./dataset"
+  image_size: 224
+  val_split: 0.15
+  num_workers: 8
+
+# 訓練設定
+training:
+  batch_size: 64
+  epochs: 30
+  learning_rate: 1e-4
+  backbone_lr_multiplier: 0.1
+  weight_decay: 0.01
+  patience: 10
+  warmup_epochs: 2
+  gradient_clip: 5.0
+  label_smoothing: 0.1
+  seed: 42
+
+# 優化器
+optimizer:
+  type: "AdamW"
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+# 學習率調度器
+scheduler:
+  type: "CosineAnnealingWarmRestarts"
+  T_0: 10
+  T_mult: 2
+  eta_min: 1e-6
+
+# 資料增強
+augmentation:
+  train:
+    horizontal_flip: 0.5
+    vertical_flip: 0.0
+    rotation_degrees: 10
+    color_jitter:
+      brightness: 0.2
+      contrast: 0.2
+      saturation: 0.1
+      hue: 0.0
+    gaussian_blur:
+      kernel_size: 3
+      sigma: [0.1, 2.0]
+      probability: 0.2
+    random_crop_scale: [0.9, 1.0]
+  
+  # Hard 增強 (用於抗噪專家)
+  hard:
+    horizontal_flip: 0.5
+    gaussian_blur:
+      kernel_size: 5
+      sigma: [0.1, 5.0]
+      probability: 0.5
+    color_jitter:
+      brightness: 0.2
+      contrast: 0.2
+      saturation: 0.0
+      hue: 0.0
+
+# 輸出設定
+output:
+  save_dir: "./outputs"
+  save_best_only: true
+  save_last: true
+
+# 混合精度
+amp:
+  enabled: true
