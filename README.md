@@ -2,15 +2,6 @@
 
 基於 **DINOv2 + CLIP + ConvNeXt + EfficientNet** 的 Deepfake 圖像檢測框架，採用分層集成策略。
 
-## ✨ 特色功能
-
-- 🦖 **DINOv2 Backbone**：自監督預訓練，對低階視覺偽影敏感
-- 🎯 **分層集成**：DINO 陣營 (70%) + CNN 陣營 (30%)
-- 🔧 **模組化配置**：YAML 配置系統，支援繼承
-- 📊 **多種集成策略**：average / weighted / hierarchical / vote
-- ⚡ **混合精度訓練**：AMP 加速訓練
-- 🎨 **Hard Augmentation**：強力高斯模糊抗噪
-
 ## 專案結構
 
 ```
@@ -49,7 +40,7 @@ deepfake-recognition/
 
 ## 可用模型
 
-### DINOv2 系列 (推薦主力)
+### DINOv2 系列
 | 配置檔案 | 模型 | Embedding | 說明 |
 |---------|------|-----------|------|
 | `dino_vitl14.yaml` | ViT-L/14 | 1024d | 基礎版本，解凍 2 層 |
@@ -167,7 +158,6 @@ augmentation:
 |------|------|
 | `average` | 簡單平均所有模型機率 |
 | `weighted_average` | 加權平均 |
-| `hierarchical` | DINO 陣營 70% + CNN 陣營 30% |
 | `vote` | 多數投票 |
 
 ### 分層集成配置範例
@@ -188,13 +178,6 @@ ensemble:
         - convnext_base
         - efficientnet_b4_dct
 ```
-
-## 訓練技巧
-
-1. **DINOv2 為主力**：對 deepfake 低階偽影敏感
-2. **分層集成**：DINO 陣營權重 70%，CNN 陣營 30%
-3. **Hard 增強**：使用強力高斯模糊訓練抗噪專家
-4. **差異化訓練**：不同解凍深度 + 不同增強策略
 
 ## License
 
