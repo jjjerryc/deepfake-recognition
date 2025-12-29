@@ -24,7 +24,7 @@ model:
 training:
   batch_size: 16
   epochs: 4
-  learning_rate: 5e-5         # CNN 統一學習率
+  learning_rate: 0.00005      # CNN 統一學習率
   backbone_lr_multiplier: 1.0 # 不用分層
 
 preprocessing:

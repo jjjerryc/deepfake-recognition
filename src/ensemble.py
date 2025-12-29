@@ -115,8 +115,8 @@ def load_predictions(output_dir: str, model_names: List[str], use_tta: bool = Tr
         if prob_path.exists():
             df = pd.read_csv(prob_path)
             df['filename'] = df['filename'].astype(str)
-            df = df.sort_values('filename')
-            
+            # 檔案已按數字排序，直接讀取即可
+
             if filenames is None:
                 filenames = df['filename'].tolist()
             
@@ -229,7 +229,8 @@ def run_ensemble(
     print(f"\n📊 Generating submissions...")
     
     for t in thresholds:
-        labels = ['fake' if p > t else 'real' for p in final_probs]
+        # 注意：模型訓練時 fake=0, real=1，所以高機率是 real
+        labels = ['real' if p > t else 'fake' for p in final_probs]
         t_df = pd.DataFrame({'filename': filenames, 'label': labels})
         t_path = ensemble_output_dir / f'ensemble_submission{suffix}_t{int(t*10)}.csv'
         t_df.to_csv(t_path, index=False)
@@ -238,7 +239,8 @@ def run_ensemble(
     
     # 使用 median 作為預設
     median_threshold = np.median(final_probs)
-    labels = ['fake' if p > median_threshold else 'real' for p in final_probs]
+    # 注意：模型訓練時 fake=0, real=1，所以高機率是 real
+    labels = ['real' if p > median_threshold else 'fake' for p in final_probs]
     submission_df = pd.DataFrame({'filename': filenames, 'label': labels})
     submission_path = ensemble_output_dir / f'ensemble_submission{suffix}.csv'
     submission_df.to_csv(submission_path, index=False)

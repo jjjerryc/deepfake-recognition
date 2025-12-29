@@ -26,7 +26,7 @@ model:
 training:
   batch_size: 64
   epochs: 50
-  learning_rate: 1e-4
+  learning_rate: 0.0001
   backbone_lr_multiplier: 0.1
   weight_decay: 0.05
   label_smoothing: 0.1
