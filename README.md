@@ -1,6 +1,6 @@
 # NYCU DL final project Deepfake Detection
 
-基於 **DINOv2 + CLIP + EfficientNet** 的 Deepfake 圖像檢測框架，採用分層集成策略。
+基於 **DINOv2 + CLIP + EfficientNet** 的 Deepfake 圖像檢測框架，採用多模型集成策略。
 
 ## 專案結構
 
