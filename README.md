@@ -168,24 +168,7 @@ augmentation:
 | `weighted_average` | 加權平均 |
 | `vote` | 多數投票 |
 
-### 分層集成配置範例
-
-```yaml
-# configs/ensemble.yaml
-ensemble:
-  strategy: hierarchical
-  camps:
-    dino:
-      weight: 0.7
-      models:
-        - dino_vitl14
-        - dino_vitl14_blur
-    cnn:
-      weight: 0.3
-      models:
-        - convnext_base
-        - efficientnet_b4_dct
-```
+最終使用 `average` 策略
 
 ## License
 
