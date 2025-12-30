@@ -5,7 +5,7 @@ ensemble:
   # 集成策略: average, weighted_average, vote, hierarchical
   strategy: "hierarchical"
   
-  # 階層式集成設定 (類似同學的做法)
+  # 階層式集成設定
   hierarchical:
     # 第一層：各陣營內部平均
     groups:
