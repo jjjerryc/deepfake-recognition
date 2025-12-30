@@ -6,6 +6,7 @@
 
 ```
 deepfake-recognition/
+├── dataset/   #資料集放置位置
 ├── configs/                    
 │   ├── base.yaml              
 │   ├── dino_vitl14.yaml       
