@@ -12,7 +12,7 @@ data:
 training:
   batch_size: 64
   epochs: 30
-  learning_rate: 1e-4
+  learning_rate: 0.0001
   backbone_lr_multiplier: 0.1
   weight_decay: 0.01
   patience: 10
@@ -32,7 +32,7 @@ scheduler:
   type: "CosineAnnealingWarmRestarts"
   T_0: 10
   T_mult: 2
-  eta_min: 1e-6
+  eta_min: 0.000001
 
 # 資料增強
 augmentation:

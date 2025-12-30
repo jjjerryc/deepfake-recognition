@@ -30,7 +30,7 @@ from PIL import Image
 from tqdm import tqdm
 
 from .utils.config import load_config, get_model_name
-from .train_v2 import create_model, get_transforms
+from .train import create_model, get_transforms
 
 
 # ============================================================================
@@ -247,13 +247,22 @@ def inference(
     # 輸出目錄
     output_dir = Path(config['output']['save_dir']) / model_name
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # 保存機率
+
+    # 保存機率 (按數字排序)
     suffix = '_tta' if use_tta else ''
     prob_df = pd.DataFrame({
         'filename': all_filenames,
         'prob': all_probs
     })
+    # 按數字排序 (1, 2, 3...) 而非字串排序 (1, 10, 100...)
+    prob_df['_sort_key'] = prob_df['filename'].astype(int)
+    prob_df = prob_df.sort_values('_sort_key')
+    prob_df = prob_df.drop(columns=['_sort_key'])
+
+    # 更新排序後的值
+    all_filenames = prob_df['filename'].tolist()
+    all_probs = prob_df['prob'].values
+
     prob_path = output_dir / f'predictions_probs{suffix}.csv'
     prob_df.to_csv(prob_path, index=False)
     print(f"\n✅ Probabilities saved to {prob_path}")
@@ -269,7 +278,8 @@ def inference(
     print(f"\n📊 Generating submissions with different thresholds...")
     
     for t in thresholds:
-        labels = ['fake' if p > t else 'real' for p in all_probs]
+        # 注意：模型訓練時 fake=0, real=1，所以高機率是 real
+        labels = ['real' if p > t else 'fake' for p in all_probs]
         t_df = pd.DataFrame({'filename': all_filenames, 'label': labels})
         t_path = output_dir / f'submission{suffix}_t{int(t*10)}.csv'
         t_df.to_csv(t_path, index=False)
@@ -278,7 +288,8 @@ def inference(
     
     # 使用 median 作為預設 submission
     median_threshold = np.median(all_probs)
-    labels = ['fake' if p > median_threshold else 'real' for p in all_probs]
+    # 注意：模型訓練時 fake=0, real=1，所以高機率是 real
+    labels = ['real' if p > median_threshold else 'fake' for p in all_probs]
     submission_df = pd.DataFrame({'filename': all_filenames, 'label': labels})
     submission_path = output_dir / f'submission{suffix}.csv'
     submission_df.to_csv(submission_path, index=False)

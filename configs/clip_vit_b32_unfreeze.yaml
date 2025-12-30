@@ -11,6 +11,6 @@ model:
 training:
   batch_size: 64
   epochs: 30
-  learning_rate: 5e-5
+  learning_rate: 0.00005
   backbone_lr_multiplier: 0.1
   patience: 10

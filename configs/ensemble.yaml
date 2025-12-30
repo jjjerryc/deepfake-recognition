@@ -49,7 +49,7 @@ tta:
 
 # 輸出設定
 output:
-  save_dir: "./outputs/ensemble"
+  save_dir: "./outputs"
   save_individual: true       # 保存各模型預測
   save_probs: true           # 保存機率值
 

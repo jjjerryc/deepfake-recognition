@@ -128,8 +128,9 @@ class EfficientNetDCT(BaseModel):
             nn.Dropout(dropout * 0.5),
         )
         
-        # ========== 分類頭 ==========
-        self.classifier = nn.Linear(fusion_dim // 2, num_classes)
+        # ========== 分類頭 (二元分類輸出 1，多類別輸出 num_classes) ==========
+        output_dim = 1 if num_classes == 2 else num_classes
+        self.classifier = nn.Linear(fusion_dim // 2, output_dim)
         
         # 初始化分類頭
         nn.init.xavier_uniform_(self.classifier.weight)

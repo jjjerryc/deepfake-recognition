@@ -248,16 +248,32 @@ def create_model(config: Dict[str, Any], device: torch.device):
         )
         
     elif model_type == 'clip':
-        from .models.clip_model import CLIPClassifier
-        
-        model = CLIPClassifier(
-            clip_model=model_config.get('backbone', 'ViT-B-32'),
-            pretrained=model_config.get('pretrained', 'openai'),
-            num_classes=model_config.get('num_classes', 2),
-            freeze_encoder=model_config.get('freeze_backbone', True),
-            dropout=model_config.get('head', {}).get('dropout', 0.5),
-            hidden_dim=model_config.get('head', {}).get('hidden_dim', 512),
-        )
+        # 檢查是否使用 DCT
+        use_dct = model_config.get('use_dct', False)
+
+        if use_dct:
+            from .models.clip_model import CLIPWithDCT
+
+            model = CLIPWithDCT(
+                clip_model=model_config.get('backbone', 'ViT-B-32'),
+                pretrained=model_config.get('pretrained', 'openai'),
+                num_classes=model_config.get('num_classes', 2),
+                freeze_encoder=model_config.get('freeze_backbone', True),
+                dropout=model_config.get('head', {}).get('dropout', 0.5),
+                dct_dim=model_config.get('dct', {}).get('dim', 128),
+                fusion_dim=model_config.get('fusion', {}).get('dim', 512),
+            )
+        else:
+            from .models.clip_model import CLIPClassifier
+
+            model = CLIPClassifier(
+                clip_model=model_config.get('backbone', 'ViT-B-32'),
+                pretrained=model_config.get('pretrained', 'openai'),
+                num_classes=model_config.get('num_classes', 2),
+                freeze_encoder=model_config.get('freeze_backbone', True),
+                dropout=model_config.get('head', {}).get('dropout', 0.5),
+                hidden_dim=model_config.get('head', {}).get('hidden_dim', 512),
+            )
         
     elif model_type == 'efficientnet_dct':
         from .models.efficientnet_dct import EfficientNetDCT
@@ -350,8 +366,8 @@ def train(config: Dict[str, Any], seed: int):
     train_loader, val_loader = get_dataloaders(config, seed)
     
     # 優化器
-    base_lr = train_config['learning_rate']
-    backbone_lr_mult = train_config.get('backbone_lr_multiplier', 0.1)
+    base_lr = float(train_config['learning_rate'])
+    backbone_lr_mult = float(train_config.get('backbone_lr_multiplier', 0.1))
     
     if hasattr(model, 'get_param_groups'):
         param_groups = model.get_param_groups(base_lr, backbone_lr_mult)
